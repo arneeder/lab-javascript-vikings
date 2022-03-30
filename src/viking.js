@@ -45,8 +45,6 @@ class Saxon extends Soldier {
 }
 
 // War
-//  QUESTION: HOW DO I KNOW WHAT TO INSERT INSTEAD OF SAXON AND VIKING IN vikingAttack
-// IF NOW PARAMETER IS PASSED? -> I ONLY HAVE THE CLASSES, NO OBJECT IS GENERATED YET.
 
 class War {
   constructor() {
@@ -67,25 +65,39 @@ class War {
     let attackingVikingIndex = Math.floor(Math.random() * this.vikingArmy.length)
     let attackingViking = this.vikingArmy[attackingVikingIndex]
 
-    console.log('Vinking Strength: ' + attackingViking.strength)
-    console.log('Saxon health before: ' + attackedSaxon.health)
+    //console.log('Vinking Strength: ' + attackingViking.strength)
+    //console.log('Saxon health before: ' + attackedSaxon.health)
     let returnValue =  attackedSaxon.receiveDamage(attackingViking.strength)
-    console.log('Saxon health after: ' + attackedSaxon.health)
+    //console.log('Saxon health after: ' + attackedSaxon.health)
     if(attackedSaxon.health <= 0) {
       attackedSaxon.splice(attackedSaxonIndex, 1)
     }
     return returnValue
   }
-  saxonAttack() {}
+  saxonAttack() {
+    // get random Saxon
+    let attackingSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length)
+    let attackingSaxon = this.saxonArmy[attackingSaxonIndex]
+    // get random Viking
+    let attackedVikingIndex = Math.floor(Math.random() * this.vikingArmy.length)
+    let attackedViking = this.vikingArmy[attackedVikingIndex]
+
+    // attack
+    let returnValue =  attackedViking.receiveDamage(attackingSaxon.strength)
+    if(attackedViking.health <= 0) {
+      attackedViking.splice(attackedVikingIndex, 1)
+    }
+    return returnValue
+  }
   showStatus() {}
 }
 
 // TRYING OUT //
 
-const saxon0 = new Saxon(1000,100)
-const saxon1 = new Saxon(1000,100)
-const saxon2 = new Saxon(1000,100)
-const saxon3 = new Saxon(1000,100)
+const saxon0 = new Saxon(1000,10000)
+const saxon1 = new Saxon(1000,10000)
+const saxon2 = new Saxon(1000,10000)
+const saxon3 = new Saxon(1000,10000)
 
 const viking0 = new Viking('firstViking', 1000,100)
 const viking1 = new Viking('secondViking', 1000, 100)
@@ -99,7 +111,10 @@ testWar.addSaxon(saxon3)
 testWar.addViking(viking0)
 testWar.addViking(viking1)
 
-console.log(testWar.vikingAttack())
+// console.log(vikingArmy.length)
+// console.log(testWar.saxonAttack())
+// console.log(vikingArmy.length)
+
 
 // TRYING OUT END //
 
